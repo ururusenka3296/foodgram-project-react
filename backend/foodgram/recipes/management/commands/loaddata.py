@@ -15,5 +15,5 @@ class Command(BaseCommand):
                 [Ingredient(
                     name=item['name'],
                     measurement_unit=item['measurement_unit']
-                    ) for item in data]
+                ) for item in data]
             )
