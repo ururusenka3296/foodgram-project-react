@@ -11,8 +11,9 @@ class Command(BaseCommand):
             'recipes/management/commands/data/ingredients.json', 'rb'
         ) as f:
             data = json.load(f)
-            for item in data:
-                print(item)
-                Ingredient.objects.create(
+            Ingredient.objects.bulk_create(
+                [Ingredient(
                     name=item['name'],
-                    measurement_unit=item['measurement_unit'])
+                    measurement_unit=item['measurement_unit']
+                    ) for item in data]
+            )

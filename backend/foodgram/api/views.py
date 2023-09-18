@@ -11,7 +11,7 @@ from rest_framework.response import Response
 from users.models import Follow, User
 
 from .permissions import IsAdminOrReadOnly, IsAuthororAdminorRead
-from .serializers import (CreateRecipeSerializer, FavouriteSerializer,
+from .serializers import (CreateUpdateRecipeSerializer, FavouriteSerializer,
                           IngredientSerializer, RecipeSerializer,
                           Shopping_cartSerializer, SubscribeSerializer,
                           TagSerializer)
@@ -75,7 +75,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         '''Переопределение сериализатора для POST запроса.'''
         if self.request.method in SAFE_METHODS:
             return RecipeSerializer
-        return CreateRecipeSerializer
+        return CreateUpdateRecipeSerializer
 
     def perform_create(self, serializer):
         '''Добавление автора рецепта, пользователя который сделал запрос.'''

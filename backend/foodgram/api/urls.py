@@ -8,15 +8,15 @@ from .views import (Favourites, IngredientViewSet, RecipeViewSet,
 
 app_name = 'api'
 
-router_v1 = DefaultRouter()
+router = DefaultRouter()
 
-router_v1.register('tags', TagViewSet, basename='tags')
-router_v1.register('recipes', RecipeViewSet, basename='recipes')
-router_v1.register('ingredients', IngredientViewSet, basename='ingredients')
+router.register('tags', TagViewSet, basename='tags')
+router.register('recipes', RecipeViewSet, basename='recipes')
+router.register('ingredients', IngredientViewSet, basename='ingredients')
 
 
 urlpatterns = [
-    path('', include(router_v1.urls)),
+    path('', include(router.urls)),
     path(
         'recipes/<int:recipe_id>/shopping_cart/',
         Shopping_listViews.as_view(),
