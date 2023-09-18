@@ -5,7 +5,7 @@ from rest_framework import serializers
 from django.core.files.base import ContentFile
 
 from users.models import Follow, User
-from recipes.models import (Favourites, Ingredient, RecipeIngredient, Recipe,
+from recipes.models import (Ingredient, RecipeIngredient, Recipe,
                             ShoppingList, Tag)
 
 
