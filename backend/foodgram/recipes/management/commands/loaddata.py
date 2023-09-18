@@ -17,4 +17,3 @@ class Command(BaseCommand):
                     measurement_unit=item['measurement_unit']
                 ) for item in data]
             )
-# 
