@@ -19,7 +19,7 @@ from .filters import IngredientFilter, RecipeFilter
 
 
 class TagViewSet(viewsets.ModelViewSet):
-    '''Вьюсет для Тегов.'''
+    """Вьюсет для Тегов."""
 
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
@@ -28,7 +28,7 @@ class TagViewSet(viewsets.ModelViewSet):
 
 
 class IngredientViewSet(viewsets.ModelViewSet):
-    '''Вьюсет для Ингредиентов.'''
+    """Вьюсет для Ингредиентов."""
 
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
@@ -39,30 +39,30 @@ class IngredientViewSet(viewsets.ModelViewSet):
 
 
 class Favourites(generics.RetrieveDestroyAPIView, generics.ListCreateAPIView):
-    '''Вью для добавления и удаления рецепта в избранное.'''
+    """Вью для добавления и удаления рецепта в избранное."""
 
     queryset = Recipe.objects.all()
     serializer_class = FavouriteSerializer
     permission_classes = (IsAuthenticated,)
 
     def get_object(self):
-        '''Получение id рецепта из URL.'''
+        """Получение id рецепта из URL."""
         return get_object_or_404(Recipe, id=self.kwargs['recipe_id'])
 
     def create(self, request, *args, **kwargs):
-        '''Добавление в избранное.'''
+        """Добавление в избранное."""
         recipe = self.get_object()
         favorite = request.user.favourites.create(recipe=recipe)
         serializer = self.get_serializer(favorite)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def perform_destroy(self, instance):
-        '''Удаление подписки.'''
+        """Удаление подписки."""
         self.request.user.favourites.filter(recipe=instance).delete()
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
-    '''Вьюсет для рецептов.'''
+    """Вьюсет для рецептов."""
 
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
@@ -72,13 +72,13 @@ class RecipeViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthororAdminorRead, )
 
     def get_serializer_class(self):
-        '''Переопределение сериализатора для POST запроса.'''
+        """Переопределение сериализатора для POST запроса."""
         if self.request.method in SAFE_METHODS:
             return RecipeSerializer
         return CreateUpdateRecipeSerializer
 
     def perform_create(self, serializer):
-        '''Добавление автора рецепта, пользователя который сделал запрос.'''
+        """Добавление автора рецепта, пользователя который сделал запрос."""
         serializer.save(author=self.request.user)
 
     @action(detail=False)
@@ -107,18 +107,18 @@ class Subscribe(generics.RetrieveDestroyAPIView, generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
 
     def get_object(self):
-        '''Получение id пользователя из URL.'''
+        """Получение id пользователя из URL."""
         user_id = self.kwargs['user_id']
         return get_object_or_404(User, id=user_id)
 
     def get_queryset(self):
-        '''Проверка наличие подписки.'''
+        """Проверка наличие подписки."""
         follow = Follow.objects.filter(
             user=self.request.user, author=self.get_object()).exists()
         return follow
 
     def create(self, request, *args, **kwargs):
-        '''Создание подписки.'''
+        """Создание подписки."""
         user_author = self.get_object()
         if request.user.id == user_author.id:
             return Response('Нельзя подписаться на самого себя!',
@@ -131,7 +131,7 @@ class Subscribe(generics.RetrieveDestroyAPIView, generics.ListCreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def perform_destroy(self, instance):
-        '''Удаление подписки.'''
+        """Удаление подписки."""
         self.request.user.follower.filter(author=instance).delete()
 
 
@@ -143,24 +143,24 @@ class Shopping_listViews(generics.RetrieveDestroyAPIView,
     permission_classes = (IsAuthenticated,)
 
     def get_object(self):
-        '''Получение id рецепта из URL.'''
+        """Получение id рецепта из URL."""
         return get_object_or_404(Recipe, id=self.kwargs['recipe_id'])
 
     def create(self, request, *args, **kwargs):
-        '''Добавление в список покупок.'''
+        """Добавление в список покупок."""
         recipe = self.get_object()
         request.user.shopping_list.create(recipe=recipe)
         serializer = self.get_serializer(recipe)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def perform_destroy(self, instance):
-        '''Удаление рецепта из листа покупок.'''
+        """Удаление рецепта из листа покупок."""
         self.request.user.shopping_list.filter(
             recipe=self.get_object()).delete()
 
 
 class SubscriptionsViews(generics.ListAPIView):
-    '''Вьюсет для отображения подписок пользователя'''
+    """Вьюсет для отображения подписок пользователя."""
 
     queryset = Follow.objects.all()
     serializer_class = SubscribeSerializer
@@ -169,7 +169,7 @@ class SubscriptionsViews(generics.ListAPIView):
 
     @action(detail=False, methods=['GET'])
     def subscriptions(self, request):
-        '''Метод для отображения всех подписок пользователя.'''
+        """Метод для отображения всех подписок пользователя."""
         follows = request.user.follower
         serializer = SubscribeSerializer(follows, many=True)
         return Response(serializer.data)
