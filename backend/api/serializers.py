@@ -123,7 +123,7 @@ class RecipeSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if request.user.is_anonymous:
             return False
-        return request.user.shopping_cart.filter(recipe=obj).exists()
+        return request.user.shopping_list.filter(recipe=obj).exists()
 
 
 class RecipeIngredientCreateSerializer(serializers.ModelSerializer):
@@ -185,7 +185,7 @@ class CreateUpdateRecipeSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if request.user.is_anonymous:
             return False
-        return request.user.shopping_cart.filter(recipe=obj).exists()
+        return request.user.shopping_list.filter(recipe=obj).exists()
 
 
 class RecipeShortSerializer(serializers.ModelSerializer):
