@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import (Favourites, Ingredient, RecipeIngredient, Recipe,
-                     Shopping_list, Tag)
+                     ShoppingList, Tag)
 from .forms import IngredientForm
 
 
@@ -50,7 +50,7 @@ class FavouritesAdmin(admin.ModelAdmin):
     ordering = ['user']
 
 
-class Shopping_listAdmin(admin.ModelAdmin):
+class ShoppingListAdmin(admin.ModelAdmin):
     list_display = ('user', 'recipe')
     search_fields = ('user',)
     list_filter = ('user',)
@@ -62,4 +62,4 @@ admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Ingredient, IngredientAdmin)
 admin.site.register(Favourites, FavouritesAdmin)
-admin.site.register(Shopping_list, Shopping_listAdmin)
+admin.site.register(ShoppingList, ShoppingListAdmin)

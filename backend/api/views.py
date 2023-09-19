@@ -13,7 +13,7 @@ from users.models import Follow, User
 from .permissions import IsAdminOrReadOnly, IsAuthororAdminorRead
 from .serializers import (CreateUpdateRecipeSerializer, FavouriteSerializer,
                           IngredientSerializer, RecipeSerializer,
-                          Shopping_cartSerializer, SubscribeSerializer,
+                          ShoppingCartSerializer, SubscribeSerializer,
                           TagSerializer)
 from .filters import IngredientFilter, RecipeFilter
 
@@ -139,7 +139,7 @@ class Shopping_listViews(generics.RetrieveDestroyAPIView,
                          generics.ListCreateAPIView):
     """Добавление и удаление рецептов из листа покупок."""
 
-    serializer_class = Shopping_cartSerializer
+    serializer_class = ShoppingCartSerializer
     permission_classes = (IsAuthenticated,)
 
     def get_object(self):

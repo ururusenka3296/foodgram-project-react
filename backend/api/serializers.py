@@ -236,7 +236,7 @@ class SubscribeSerializer(serializers.ModelSerializer):
         return obj.author.recipe.all().count()
 
 
-class Shopping_cartSerializer(serializers.ModelSerializer):
+class ShoppingCartSerializer(serializers.ModelSerializer):
 
     name = serializers.CharField()
     image = serializers.ImageField()
