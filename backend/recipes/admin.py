@@ -44,7 +44,7 @@ class IngredientAdmin(admin.ModelAdmin):
 
 class FavouritesAdmin(admin.ModelAdmin):
     list_display = ('user', 'recipe')
-    search_fields = ('user',)
+    search_fields = ('user__email',)
     list_filter = ('user',)
     empty_value_display = '-пусто-'
     ordering = ['user']
@@ -52,7 +52,7 @@ class FavouritesAdmin(admin.ModelAdmin):
 
 class ShoppingListAdmin(admin.ModelAdmin):
     list_display = ('user', 'recipe')
-    search_fields = ('user',)
+    search_fields = ('user__email',)
     list_filter = ('user',)
     empty_value_display = '-пусто-'
     ordering = ['user']

@@ -186,6 +186,18 @@ class CreateUpdateRecipeSerializer(serializers.ModelSerializer):
         if request.user.is_anonymous:
             return False
         return request.user.shopping_list.filter(recipe=obj).exists()
+    
+    def validate(self, attrs):
+        ingredients = attrs['ingredients']
+        for ingredient in ingredients:
+            if int(ingredient.get('amount')) < 1:
+                raise serializers.ValidationError(
+                    'Количество ингредиента должно быть больше 0!')
+        cooking_time = attrs['cooking_time']
+        if cooking_time < 1:
+            raise serializers.ValidationError(
+                'Время приготовления должно быть больше 0 мин')
+        return attrs
 
 
 class RecipeShortSerializer(serializers.ModelSerializer):
