@@ -23,7 +23,7 @@ class Tag(models.Model):
         verbose_name = 'Тэг'
         verbose_name_plural = 'Тэги'
 
-    def str(self):
+    def __str__(self):
         return self.name
 
 
@@ -41,7 +41,7 @@ class Ingredient(models.Model):
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты'
 
-    def str(self):
+    def __str__(self):
         return self.name
 
 
@@ -71,7 +71,7 @@ class Recipe(models.Model):
         verbose_name_plural = 'Рецепты'
         ordering = ("-id",)
 
-    def str(self):
+    def __str__(self):
         return self.name
 
 
@@ -103,7 +103,7 @@ class RecipeIngredient(models.Model):
         verbose_name = 'Ингредиент в рецепте'
         verbose_name_plural = 'Ингредиенты в рецепте'
 
-    def str(self):
+    def __str__(self):
         return f'{self.amount}гр. {self.ingredient.name} в {self.recipe.name}'
 
 
@@ -126,7 +126,7 @@ class Favourites(models.Model):
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
 
-    def str(self):
+    def __str__(self):
         return f'Пользователь {self.user} добавил в избранное {self.recipe}'
 
 
@@ -149,5 +149,5 @@ class ShoppingList(models.Model):
         verbose_name = 'Список покупок'
         verbose_name_plural = 'Списки покупок'
 
-    def str(self):
+    def __str__(self):
         return f'Список покупок {self.user}'
