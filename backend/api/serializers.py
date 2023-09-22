@@ -186,7 +186,7 @@ class CreateUpdateRecipeSerializer(serializers.ModelSerializer):
         if request.user.is_anonymous:
             return False
         return request.user.shopping_list.filter(recipe=obj).exists()
-    
+
     def validate(self, attrs):
         ingredients = attrs['ingredients']
         for ingredient in ingredients:
